@@ -1,3 +1,4 @@
+# Quelle: https://www.inwt-statistics.de/blog-artikel-lesen/Clusteranalyse_in_R.html
 #Notwendige Pakete
 require(dplyr)
 require(broom)
@@ -39,8 +40,9 @@ ggplot(sumsq.clust,aes(k,tot.withinss))+ geom_line()+geom_point()
 
 # k-means-Algorithmus erhaltene Gruppenstruktur für K=2
 p.cluster<-cars%>%kmeans(.,2)
-p.cluster$cluster<-as.factor(p.cluster$cluster)
-ggplot(cars,aes(mpg,disp,label=rownames(cars)))+scale_fill_discrete(name ="Cluster")+xlim(9,35)+geom_label(aes(fill=p.cluster$cluster),colour="white",fontface="bold",size=2)
+# Benedikt: der nachfolgende Befehl beschädigt dir für sil das p.cluster:
+p.cluster$clusterKmeans<-as.factor(p.cluster$cluster)
+ggplot(cars,aes(mpg,disp,label=rownames(cars)))+scale_fill_discrete(name ="Cluster")+xlim(9,35)+geom_label(aes(fill=p.cluster$clusterKmeans),colour="white",fontface="bold",size=2)
 
 #An diesem Punkt wäre es interessant, vergleichsweise die 
 #Gruppenstruktur auch für k=1,k=2,K=3,K=4 anzusehen
